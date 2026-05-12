@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="result-header">
+    <text class="title">📖 读题训练完成！</text>
+    <view class="stars">
+      <text wx:for="{{starsArr}}" wx:key="*this">⭐</text>
+      <text class="stars-text">+{{stars}}颗星</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view wx:for="{{results}}" wx:key="index" class="result-item">
+      <text>第{{index + 1}}题</text>
+      <text wx:if="{{item.correct}}" class="text-green">✅ 全对</text>
+      <text wx:elif="{{!item.infoCorrect}}" class="text-orange">⚠️ 信息不完整</text>
+      <text wx:elif="{{!item.questionCorrect}}" class="text-red">❌ 问题选错</text>
+    </view>
+  </view>
+
+  <view class="card stats-card">
+    <text class="stats-title">📊 本次表现</text>
+    <view class="stat-bar-row">
+      <text class="stat-bar-label">总正确率</text>
+      <view class="stat-bar">
+        <view class="stat-bar-fill" style="width: {{accuracy}}%"></view>
+      </view>
+      <text class="stat-bar-value">{{accuracy}}%</text>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="goHome">返回首页</button>
+</view>

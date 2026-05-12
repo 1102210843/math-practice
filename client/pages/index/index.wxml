@@ -1,0 +1,76 @@
+<view class="page-bg">
+  <!-- 蓝色头部背景（弧形底部，只到导航栏+留出卡片上半空间） -->
+  <view class="header-bg">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="custom-nav">
+      <text class="nav-title">口算小达人</text>
+    </view>
+  </view>
+
+  <!-- 用户卡片：负margin上移，骑跨蓝灰交界 -->
+  <view class="user-card">
+    <view class="user-card-left">
+      <view class="greeting-line1">Hi,</view>
+      <view class="greeting-line2">口算小达人</view>
+      <view class="user-stats">
+        <text class="star-count">⭐ {{totalStars}}颗星</text>
+        <view class="level-badge">Lv.{{level}} {{levelName}}</view>
+      </view>
+    </view>
+    <image class="mascot-img" src="{{mascotUrl}}" mode="aspectFit" />
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content-area">
+    <view class="section-header">
+      <view class="section-title-row">
+        <view class="section-bar"></view>
+        <text class="section-title-text">今日任务</text>
+      </view>
+    </view>
+
+    <view class="task-card" bindtap="goOralCalc">
+      <view class="task-icon-wrap">
+        <image class="task-icon-img" src="{{iconOralCalc}}" mode="aspectFit" />
+      </view>
+      <view class="task-info">
+        <text class="task-name">口算闯关</text>
+        <text class="task-desc">{{questionCount}}道口算 · 约3分钟</text>
+      </view>
+      <view wx:if="{{oralCalcDone}}" class="done-badge">✅ 已完成</view>
+      <view wx:else class="start-btn">开始</view>
+    </view>
+
+    <view class="task-card" bindtap="goReading">
+      <view class="task-icon-wrap">
+        <image class="task-icon-img" src="{{iconReading}}" mode="aspectFit" />
+      </view>
+      <view class="task-info">
+        <text class="task-name">读题训练</text>
+        <text class="task-desc">3道应用题 · 约5分钟</text>
+      </view>
+      <view wx:if="{{readingDone}}" class="done-badge">✅ 已完成</view>
+      <view wx:else class="start-btn">开始</view>
+    </view>
+
+    <view class="section-header section-header-calendar">
+      <view class="section-title-row">
+        <view class="section-bar"></view>
+        <text class="section-title-text">本月打卡</text>
+      </view>
+    </view>
+
+    <view class="calendar-card">
+      <view class="cal-header">
+        <text wx:for="{{weekDays}}" wx:key="*this" class="cal-week-day">{{item}}</text>
+      </view>
+      <view class="cal-grid">
+        <view wx:for="{{calendarDays}}" wx:key="index" class="cal-day-wrap">
+          <view wx:if="{{!item.empty}}" class="cal-day {{item.today ? 'cal-today' : ''}} {{item.done ? 'cal-done' : ''}}">
+            <text>{{item.day}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

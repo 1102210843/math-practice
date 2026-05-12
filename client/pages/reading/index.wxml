@@ -1,0 +1,116 @@
+<view class="page-bg">
+  <!-- 进度 -->
+  <view class="progress-row">
+    <text class="progress-text">{{currentIndex + 1}}/{{totalCount}}</text>
+  </view>
+  <view class="progress-wrapper">
+    <view class="progress-fill" style="width: {{(currentIndex + 1) / totalCount * 100}}%"></view>
+  </view>
+
+  <!-- 题目卡片 -->
+  <view class="question-card">
+    <text class="question-content">{{currentQuestion.content}}</text>
+    <view class="audio-btn" bindtap="playAudio">
+      <text class="audio-icon">🔊</text>
+      <text class="audio-text">点击朗读</text>
+    </view>
+  </view>
+
+  <!-- 第一步：找数学信息 -->
+  <view wx:if="{{step === 1}}">
+    <view class="step-row">
+      <view class="step-bar"></view>
+      <text class="step-label">第一步：找出数学信息</text>
+    </view>
+    <view class="step-hint">（可以选多个哦）</view>
+
+    <view
+      wx:for="{{currentQuestion.options}}"
+      wx:key="id"
+      class="option-card {{selectedInfos[item.id] ? 'option-selected' : ''}}"
+      bindtap="toggleInfo"
+      data-id="{{item.id}}"
+    >
+      <view class="option-checkbox {{selectedInfos[item.id] ? 'checkbox-checked' : ''}}">
+        <text wx:if="{{selectedInfos[item.id]}}">✓</text>
+      </view>
+      <text class="option-text">{{item.text}}</text>
+    </view>
+
+    <view class="btn-wrap">
+      <button class="btn-submit {{hasSelection ? '' : 'btn-disabled'}}" bindtap="submitInfos">提交答案</button>
+    </view>
+  </view>
+
+  <!-- 第一步反馈 + 第二步 -->
+  <view wx:if="{{step === 2}}">
+    <view class="step-row">
+      <view class="step-bar"></view>
+      <text class="step-label">数学信息（反馈）</text>
+    </view>
+
+    <view
+      wx:for="{{infoFeedback}}"
+      wx:key="id"
+      class="option-card feedback-card {{item.status}}"
+    >
+      <text class="feedback-icon-small">{{item.icon}}</text>
+      <text class="option-text">{{item.text}}</text>
+      <text class="feedback-hint" wx:if="{{item.hint}}">（{{item.hint}}）</text>
+    </view>
+
+    <view class="step-row">
+      <view class="step-bar"></view>
+      <text class="step-label">第二步：找出数学问题</text>
+    </view>
+    <view class="step-hint">（只选一个）</view>
+
+    <view
+      wx:for="{{questionOptions}}"
+      wx:key="id"
+      class="option-card {{selectedQuestion === item.id ? 'option-selected' : ''}}"
+      bindtap="selectQuestion"
+      data-id="{{item.id}}"
+    >
+      <view class="option-radio {{selectedQuestion === item.id ? 'radio-checked' : ''}}">
+        <view wx:if="{{selectedQuestion === item.id}}" class="radio-dot"></view>
+      </view>
+      <text class="option-text">{{item.text}}</text>
+    </view>
+
+    <view class="btn-wrap">
+      <button class="btn-submit {{selectedQuestion ? '' : 'btn-disabled'}}" bindtap="submitQuestion">提交答案</button>
+    </view>
+  </view>
+
+  <!-- 全部反馈 -->
+  <view wx:if="{{step === 3}}">
+    <view class="step-row">
+      <view class="step-bar"></view>
+      <text class="step-label">数学信息</text>
+    </view>
+    <view
+      wx:for="{{infoFeedback}}"
+      wx:key="id"
+      class="option-card feedback-card {{item.status}}"
+    >
+      <text class="feedback-icon-small">{{item.icon}}</text>
+      <text class="option-text">{{item.text}}</text>
+    </view>
+
+    <view class="step-row">
+      <view class="step-bar"></view>
+      <text class="step-label">数学问题</text>
+    </view>
+    <view class="option-card feedback-card {{questionFeedback.status}}">
+      <text class="feedback-icon-small">{{questionFeedback.icon}}</text>
+      <text class="option-text">{{questionFeedback.text}}</text>
+    </view>
+
+    <view class="btn-wrap">
+      <button class="btn-submit" bindtap="nextQuestion">
+        {{currentIndex + 1 >= totalCount ? '查看结果' : '下一题'}}
+      </button>
+    </view>
+  </view>
+</view>

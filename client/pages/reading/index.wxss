@@ -1,0 +1,224 @@
+page {
+  background: #2E6FF2;
+}
+
+.page-bg {
+  min-height: 100vh;
+  background: #F0F4FA;
+  padding: 24rpx 28rpx 40rpx;
+  border-radius: 32rpx 32rpx 0 0;
+}
+
+/* ===== 进度 ===== */
+.progress-row {
+  margin-bottom: 12rpx;
+}
+
+.progress-text {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+.progress-wrapper {
+  height: 14rpx;
+  background: #E0E8F0;
+  border-radius: 7rpx;
+  margin-bottom: 28rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3478F6, #5EA8FF);
+  border-radius: 7rpx;
+  transition: width 0.3s ease;
+}
+
+/* ===== 题目卡片 ===== */
+.question-card {
+  background: #EBF2FF;
+  border-radius: 24rpx;
+  padding: 36rpx 32rpx;
+  margin-bottom: 28rpx;
+}
+
+.question-content {
+  font-size: 38rpx;
+  line-height: 1.8;
+  color: #1A1A2E;
+  font-weight: 500;
+}
+
+.audio-btn {
+  margin-top: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.audio-icon {
+  font-size: 32rpx;
+}
+
+.audio-text {
+  font-size: 28rpx;
+  color: #3478F6;
+  font-weight: 500;
+}
+
+/* ===== 步骤标题 ===== */
+.step-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin: 24rpx 0 12rpx;
+}
+
+.step-bar {
+  width: 8rpx;
+  height: 32rpx;
+  background: #3478F6;
+  border-radius: 4rpx;
+}
+
+.step-label {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+.step-hint {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+
+/* ===== 选项卡片 ===== */
+.option-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx 30rpx;
+  margin-bottom: 16rpx;
+  border: 2rpx solid #EAEEF5;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+}
+
+.option-selected {
+  background: #EBF2FF;
+  border-color: #3478F6;
+}
+
+/* Checkbox */
+.option-checkbox {
+  width: 44rpx;
+  height: 44rpx;
+  border: 3rpx solid #CCC;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.checkbox-checked {
+  background: #3478F6;
+  border-color: #3478F6;
+}
+
+/* Radio */
+.option-radio {
+  width: 44rpx;
+  height: 44rpx;
+  border: 3rpx solid #CCC;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.radio-checked {
+  border-color: #3478F6;
+}
+
+.radio-dot {
+  width: 24rpx;
+  height: 24rpx;
+  background: #3478F6;
+  border-radius: 50%;
+}
+
+.option-text {
+  font-size: 32rpx;
+  color: #1A1A2E;
+  flex: 1;
+}
+
+/* ===== 反馈卡片 ===== */
+.feedback-icon-small {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.feedback-hint {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+.status-correct {
+  background: #E8F5E9;
+  border-color: #66BB6A;
+}
+
+.status-missed {
+  background: #FFF3E0;
+  border-color: #FFA726;
+}
+
+.status-wrong {
+  background: #FFEBEE;
+  border-color: #EF5350;
+}
+
+/* ===== 提交按钮 ===== */
+.btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32rpx;
+  padding: 0 40rpx;
+}
+
+.btn-submit {
+  width: 100%;
+  background: #3478F6;
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  padding: 24rpx 0;
+  border: none;
+  letter-spacing: 4rpx;
+}
+
+.btn-submit::after {
+  border: none;
+}
+
+.btn-submit:active {
+  opacity: 0.85;
+}
+
+.btn-disabled {
+  background: #B0C4DE;
+}

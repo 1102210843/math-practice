@@ -1,0 +1,60 @@
+<view class="page-bg">
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <view class="progress-label">
+      <text class="progress-num">{{currentIndex + 1}}/{{totalCount}}</text>
+      <text class="progress-unit"> 题</text>
+    </view>
+    <text class="timer">⏱ {{timerText}}</text>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-wrapper">
+    <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+  </view>
+
+  <!-- 算式区域 -->
+  <view class="expression-area {{feedbackClass}}">
+    <view class="expression-line">
+      <text class="expression-text">{{currentExpression}} = </text>
+      <text class="expression-q" wx:if="{{userInput === ''}}">?</text>
+      <text class="expression-answer" wx:else>{{userInput}}</text>
+    </view>
+    <view class="input-indicator" wx:if="{{!showFeedback}}">
+      <view class="input-cursor"></view>
+    </view>
+
+    <!-- 反馈 -->
+    <view class="feedback" wx:if="{{showFeedback}}">
+      <text wx:if="{{feedbackCorrect}}" class="feedback-icon text-green">✅</text>
+      <view wx:else class="feedback-wrong">
+        <text class="feedback-icon text-red">❌</text>
+        <text class="correct-hint">正确答案：{{correctAnswer}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数字键盘 -->
+  <view class="numpad">
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onKeyTap" data-key="1">1</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="2">2</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="3">3</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onKeyTap" data-key="4">4</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="5">5</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="6">6</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onKeyTap" data-key="7">7</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="8">8</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="9">9</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key key-del" bindtap="onKeyTap" data-key="del">⌫</view>
+      <view class="numpad-key" bindtap="onKeyTap" data-key="0">0</view>
+      <view class="numpad-key key-confirm" bindtap="onConfirm">确定</view>
+    </view>
+  </view>
+</view>

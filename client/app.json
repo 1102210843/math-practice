@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/index/index",
+    "pages/oral-calc/index",
+    "pages/oral-calc/result",
+    "pages/reading/index",
+    "pages/reading/result",
+    "pages/report/index",
+    "pages/errors/index",
+    "pages/mine/index",
+    "pages/agreement/index",
+    "pages/privacy/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#2E6FF2",
+    "navigationBarTitleText": "口算小达人",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F0F4FA",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#3478F6",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/report/index",
+        "text": "报告",
+        "iconPath": "images/tab-report.png",
+        "selectedIconPath": "images/tab-report-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "images/tab-mine.png",
+        "selectedIconPath": "images/tab-mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

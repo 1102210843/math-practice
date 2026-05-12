@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="result-header">
+    <text class="title">🎉 练习完成！</text>
+    <view class="stars">
+      <text wx:for="{{starsArr}}" wx:key="*this" class="star">⭐</text>
+      <text class="stars-text">+{{stars}}颗星</text>
+    </view>
+  </view>
+
+  <view class="card stats-card">
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-label">正确率</text>
+        <text class="stat-value text-blue">{{accuracy}}%</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">用时</text>
+        <text class="stat-value">{{timeText}}</text>
+      </view>
+    </view>
+    <view class="stats-row">
+      <text class="text-green">答对 {{correctCount}} 题</text>
+      <text class="text-red">答错 {{errorCount}} 题</text>
+    </view>
+  </view>
+
+  <view wx:if="{{errors.length > 0}}">
+    <view class="section-title">── 错题回顾 ──</view>
+    <view wx:for="{{errors}}" wx:key="index" class="card error-card">
+      <text class="error-expression">{{item.expression}}</text>
+      <view class="error-detail">
+        <text class="text-red">你的答案：{{item.userAnswer}} ❌</text>
+        <text class="text-green">正确答案：{{item.correctAnswer}} ✅</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{accuracy === 100}}" class="perfect-msg">
+    太棒了！全部正确！🎉
+  </view>
+
+  <button class="btn-primary" bindtap="goHome">返回首页</button>
+</view>

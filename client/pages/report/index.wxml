@@ -1,0 +1,138 @@
+<view class="page-bg">
+  <!-- 时间范围切换 -->
+  <view class="tab-bar">
+    <view class="tab {{range === 'week' ? 'tab-active' : ''}}" bindtap="switchRange" data-range="week">本周</view>
+    <view class="tab {{range === 'month' ? 'tab-active' : ''}}" bindtap="switchRange" data-range="month">本月</view>
+  </view>
+
+  <!-- 口算报告 -->
+  <view class="section-row">
+    <view class="section-bar"></view>
+    <text class="section-title">口算</text>
+  </view>
+
+  <view class="report-card">
+    <text class="card-title">正确率趋势</text>
+
+    <view class="chart-area">
+      <view class="chart-y-axis">
+        <text>100%</text>
+        <text>80%</text>
+        <text>60%</text>
+        <text>40%</text>
+        <text>20%</text>
+        <text>0%</text>
+      </view>
+      <view class="chart-body">
+        <!-- 暂无数据占位 -->
+        <view wx:if="{{oralTrend.length === 0 || oralStats.totalPractices === 0}}" class="chart-empty">
+          <image class="empty-img" src="{{imgNodata}}" mode="aspectFit"></image>
+          <text class="empty-text">暂无数据</text>
+        </view>
+        <!-- 有数据时显示柱状图 -->
+        <view wx:else class="chart-bars">
+          <view wx:for="{{oralTrend}}" wx:key="index" class="chart-bar-wrapper">
+            <view class="chart-bar" style="height: {{item.value}}%">
+              <text class="bar-value">{{item.value}}%</text>
+            </view>
+            <text class="bar-label">{{item.label}}</text>
+          </view>
+        </view>
+        <!-- X轴标签（暂无数据时也显示） -->
+        <view wx:if="{{oralTrend.length === 0 || oralStats.totalPractices === 0}}" class="chart-x-labels">
+          <text wx:if="{{range === 'week'}}">一</text>
+          <text wx:if="{{range === 'week'}}">二</text>
+          <text wx:if="{{range === 'week'}}">三</text>
+          <text wx:if="{{range === 'week'}}">四</text>
+          <text wx:if="{{range === 'week'}}">五</text>
+          <text wx:if="{{range === 'week'}}">六</text>
+          <text wx:if="{{range === 'week'}}">日</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-value text-blue">{{oralStats.totalPractices}}</text>
+        <text class="stat-label">练习次数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-value text-green">{{oralStats.avgAccuracy}}%</text>
+        <text class="stat-label">平均正确率</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-value">{{oralStats.avgTimeText}}</text>
+        <text class="stat-label">平均用时</text>
+      </view>
+    </view>
+
+    <!-- 薄弱项分析 -->
+    <view wx:if="{{weakOps.length > 0}}" class="weak-section">
+      <text class="weak-title">💡 薄弱项分析（共{{totalErrors}}次错误）</text>
+      <view wx:for="{{weakOps}}" wx:key="type" class="weak-bar-row">
+        <text class="weak-label">{{item.name}}</text>
+        <view class="weak-bar">
+          <view class="weak-bar-fill weak-bar-{{item.level}}" style="width: {{item.percent}}%"></view>
+        </view>
+        <text class="weak-count">{{item.count}}次 ({{item.percent}}%)</text>
+      </view>
+      <view class="weak-tip">
+        <text>📌 建议多练习「{{weakOps[0].name}}」类题目</text>
+      </view>
+    </view>
+
+    <view wx:if="{{weakOps.length === 0 && oralStats.totalPractices > 0}}" class="weak-hint">
+      <text class="text-green">🎉 暂无明显薄弱项，继续保持！</text>
+    </view>
+  </view>
+
+  <!-- 读题报告 -->
+  <view class="section-row">
+    <view class="section-bar"></view>
+    <text class="section-title">读题</text>
+  </view>
+
+  <view class="report-card">
+    <view class="stats-with-illust">
+      <view class="stats-col">
+        <view class="stat-item-v">
+          <text class="stat-value text-blue">{{readingStats.totalPractices}}</text>
+          <text class="stat-label">练习次数</text>
+        </view>
+        <view class="stat-item-v">
+          <text class="stat-value text-green">{{readingStats.avgAccuracy}}%</text>
+          <text class="stat-label">平均正确率</text>
+        </view>
+      </view>
+      <view class="illust-area illust-reading">
+        <image class="illust-img" src="{{imgReading}}" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡统计 -->
+  <view class="section-row">
+    <view class="section-bar"></view>
+    <text class="section-title">打卡</text>
+  </view>
+
+  <view class="report-card">
+    <view class="stats-with-illust">
+      <view class="stats-col">
+        <view class="stat-item-v">
+          <text class="stat-value text-orange">{{streak.current}}</text>
+          <text class="stat-label">当前连续</text>
+        </view>
+        <view class="stat-item-v">
+          <text class="stat-value">{{streak.max}}</text>
+          <text class="stat-label">最长连续</text>
+        </view>
+      </view>
+      <view class="illust-area illust-checkin">
+        <image class="illust-img" src="{{imgCheckin}}" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+</view>

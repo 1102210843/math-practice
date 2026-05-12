@@ -1,0 +1,71 @@
+<view class="container">
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab {{tab === 'pending' ? 'tab-active' : ''}}" bindtap="switchTab" data-tab="pending">待订正</view>
+    <view class="tab {{tab === 'reviewed' ? 'tab-active' : ''}}" bindtap="switchTab" data-tab="reviewed">已订正</view>
+  </view>
+
+  <!-- 订正模式 -->
+  <view wx:if="{{reviewMode}}" class="review-area">
+    <view class="card review-card">
+      <text class="review-expression">{{reviewItem.expression}} = ?</text>
+      <view class="review-input-area">
+        <text class="review-input">{{reviewInput || '_'}}</text>
+      </view>
+
+      <view wx:if="{{reviewFeedback !== ''}}" class="review-feedback">
+        <text wx:if="{{reviewCorrect}}" class="text-green feedback-big">✅ 答对了！</text>
+        <view wx:else>
+          <text class="text-red feedback-big">❌ 再想想</text>
+          <text class="correct-hint">正确答案：{{reviewItem.correct_answer}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="numpad">
+      <view class="numpad-row">
+        <view class="numpad-key" bindtap="onReviewKey" data-key="1">1</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="2">2</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="3">3</view>
+      </view>
+      <view class="numpad-row">
+        <view class="numpad-key" bindtap="onReviewKey" data-key="4">4</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="5">5</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="6">6</view>
+      </view>
+      <view class="numpad-row">
+        <view class="numpad-key" bindtap="onReviewKey" data-key="7">7</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="8">8</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="9">9</view>
+      </view>
+      <view class="numpad-row">
+        <view class="numpad-key key-del" bindtap="onReviewKey" data-key="del">⌫</view>
+        <view class="numpad-key" bindtap="onReviewKey" data-key="0">0</view>
+        <view class="numpad-key key-confirm" bindtap="confirmReview">确定</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 列表模式 -->
+  <view wx:else>
+    <view wx:if="{{list.length === 0}}" class="empty">
+      <text class="empty-icon">🎉</text>
+      <text class="empty-text">{{tab === 'pending' ? '没有待订正的错题' : '还没有订正记录'}}</text>
+    </view>
+
+    <view wx:for="{{list}}" wx:key="id" class="card error-item">
+      <view class="error-left">
+        <text class="error-expression">{{item.expression}}</text>
+        <view class="error-answers">
+          <text class="text-red">你答：{{item.user_answer}}</text>
+          <text class="text-green">正确：{{item.correct_answer}}</text>
+        </view>
+        <text class="error-time">{{item.created_at}}</text>
+      </view>
+      <view wx:if="{{tab === 'pending'}}" class="review-btn" bindtap="startReview" data-index="{{index}}">订正</view>
+      <view wx:else class="reviewed-badge">✅</view>
+    </view>
+
+    <view wx:if="{{hasMore}}" class="load-more" bindtap="loadMore">加载更多</view>
+  </view>
+</view>

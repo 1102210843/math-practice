@@ -1,0 +1,70 @@
+<view class="page">
+  <view class="header">
+    <text class="title">隐私政策</text>
+    <text class="update-time">更新日期：2026年5月11日</text>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <text class="section-title">一、引言</text>
+      <text class="section-text">欢迎使用"口算小达人"（以下简称"本应用"）。我们非常重视您的隐私保护。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。请在使用本应用之前仔细阅读本隐私政策。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、我们收集的信息</text>
+      <text class="section-text">在您使用本应用时，我们可能会收集以下信息：</text>
+      <text class="section-text">1. 账号信息：包括微信昵称、头像等；</text>
+      <text class="section-text">2. 学习数据：包括答题记录、成绩、学习时长等；</text>
+      <text class="section-text">3. 设备信息：包括设备型号、操作系统版本等；</text>
+      <text class="section-text">4. 日志信息：包括访问时间、操作记录等。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、信息的使用目的</text>
+      <text class="section-text">我们收集的信息将用于以下目的：</text>
+      <text class="section-text">1. 提供、维护和改进我们的服务；</text>
+      <text class="section-text">2. 生成学习报告和统计数据；</text>
+      <text class="section-text">3. 保障账号安全；</text>
+      <text class="section-text">4. 向您发送服务通知。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、信息的存储与保护</text>
+      <text class="section-text">1. 我们采用业界标准的安全技术措施来保护您的个人信息安全。</text>
+      <text class="section-text">2. 您的个人信息存储在安全的服务器上，并受到严格的访问控制。</text>
+      <text class="section-text">3. 我们会保留您的个人信息至实现收集目的所必需的时间，除非法律要求或允许更长的保留期限。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、信息的共享与披露</text>
+      <text class="section-text">除以下情况外，我们不会与第三方共享您的个人信息：</text>
+      <text class="section-text">1. 获得您的明确同意；</text>
+      <text class="section-text">2. 根据法律法规的要求或政府主管部门的要求；</text>
+      <text class="section-text">3. 为维护我们或公共的利益所合理必需的其他情况。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、您的权利</text>
+      <text class="section-text">您对您的个人信息享有以下权利：</text>
+      <text class="section-text">1. 查询、更正或删除您的个人信息；</text>
+      <text class="section-text">2. 撤回您此前给予的同意；</text>
+      <text class="section-text">3. 注销您的账号。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">七、未成年人保护</text>
+      <text class="section-text">1. 我们非常重视对未成年人个人信息的保护。</text>
+      <text class="section-text">2. 如果您是未满18周岁的未成年人，请在监护人的陪同下阅读本政策，并在征得监护人的同意后使用本应用。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">八、隐私政策的更新</text>
+      <text class="section-text">我们可能会不时更新本隐私政策。更新后的隐私政策将在本应用内公布。重大变更时，我们会通过应用内通知的方式告知您。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">九、联系我们</text>
+      <text class="section-text">如果您对本隐私政策有任何疑问或建议，请联系我们。</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+# 统一文本换行，减少跨平台 diff
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
