@@ -1,5 +1,5 @@
-const BASE_URL = 'http://192.168.3.16:3000/api';
-const STATIC_URL = 'http://192.168.3.16:3000/static';
+const BASE_URL = 'http://10.13.234.184:3000/api';
+const STATIC_URL = 'http://10.13.234.184:3000/static';
 
 function request(url, options = {}) {
   const app = getApp();

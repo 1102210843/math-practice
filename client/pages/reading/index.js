@@ -102,14 +102,10 @@ Page({
           });
         });
 
-        const questionOptions = options.filter(o =>
-          !fb.infos.correct.includes(o.id) && !fb.infos.missed.includes(o.id) && !fb.distractors.includes(o.id)
-        );
-
         this.setData({
           step: 2,
           infoFeedback,
-          questionOptions: questionOptions.length > 0 ? questionOptions : options.filter(o => !fb.distractors.includes(o.id)),
+          questionOptions: this.data.currentQuestion.questionOptions,
           _feedback: fb,
         });
       }
@@ -136,9 +132,8 @@ Page({
 
       if (res.code === 0) {
         const fb = res.data.feedback;
-        const options = this.data.currentQuestion.options;
-        const optionMap = {};
-        options.forEach(o => { optionMap[o.id] = o.text; });
+        const qOptionMap = {};
+        this.data.questionOptions.forEach(o => { qOptionMap[o.id] = o.text; });
 
         const qCorrect = fb.question.isCorrect;
         this._results.push({
@@ -151,7 +146,7 @@ Page({
         this.setData({
           step: 3,
           questionFeedback: {
-            text: optionMap[fb.question.correct] || optionMap[this.data.selectedQuestion],
+            text: qOptionMap[fb.question.correct] || qOptionMap[this.data.selectedQuestion],
             status: qCorrect ? 'status-correct' : 'status-wrong',
             icon: qCorrect ? '✅' : '❌',
           },

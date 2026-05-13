@@ -89,109 +89,111 @@ math-practice/
 -- 用户表
 -- --------------------------------------------------
 CREATE TABLE `user` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `openid` VARCHAR(64) NOT NULL,
-  `session_key` VARCHAR(64) DEFAULT NULL,
-  `nickname` VARCHAR(50) DEFAULT NULL COMMENT '用户昵称',
-  `avatar_url` VARCHAR(500) DEFAULT NULL COMMENT '头像地址',
-  `grade` VARCHAR(10) NOT NULL DEFAULT '1-up' COMMENT '年级: 1-up/1-down/2-up/2-down',
-  `total_stars` INT UNSIGNED NOT NULL DEFAULT 0,
-  `level` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '等级 1-5',
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `openid` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '微信openid',
+  `session_key` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '微信session_key',
+  `phone` VARCHAR(20) NOT NULL DEFAULT '' COMMENT '手机号',
+  `nickname` VARCHAR(64) NOT NULL DEFAULT '口算小达人' COMMENT '用户昵称',
+  `avatar_url` VARCHAR(500) NOT NULL DEFAULT '' COMMENT '头像地址',
+  `grade` VARCHAR(10) NOT NULL DEFAULT '1-up' COMMENT '年级：1-up-一年级上 1-down-一年级下 2-up-二年级上 2-down-二年级下',
+  `total_stars` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '星星总数',
+  `level` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '等级：1-5',
   `streak_days` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '当前连续打卡天数',
-  `max_streak_days` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '历史最长连续打卡',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `max_streak_days` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '历史最长连续打卡天数',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_openid` (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+  UNIQUE KEY `uk_openid` (`openid`),
+  KEY `idx_phone` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
 
 -- --------------------------------------------------
 -- 练习记录表
 -- --------------------------------------------------
 CREATE TABLE `practice_record` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `openid` VARCHAR(64) NOT NULL,
-  `type` VARCHAR(20) NOT NULL COMMENT 'oral_calc / reading',
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `openid` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `type` VARCHAR(20) NOT NULL DEFAULT '' COMMENT '练习类型：oral_calc-口算 reading-读题',
   `practice_date` DATE NOT NULL COMMENT '练习日期',
-  `total_count` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-  `correct_count` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-  `duration_seconds` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '总用时(秒)',
-  `stars_earned` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '本次获得星星',
-  `detail` JSON DEFAULT NULL COMMENT '每题明细 [{expression, answer, userAnswer, correct, timeMs}]',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total_count` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '总题数',
+  `correct_count` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '正确题数',
+  `duration_seconds` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '总用时（秒）',
+  `stars_earned` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '本次获得星星数',
+  `detail` JSON DEFAULT NULL COMMENT '每题明细JSON',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_openid_date` (`openid`, `practice_date`),
   KEY `idx_openid_type` (`openid`, `type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='练习记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='练习记录表';
 
 -- --------------------------------------------------
 -- 口算错题表
 -- --------------------------------------------------
 CREATE TABLE `oral_calc_error` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `openid` VARCHAR(64) NOT NULL,
-  `expression` VARCHAR(30) NOT NULL COMMENT '算式 如 7+5',
-  `correct_answer` INT NOT NULL,
-  `user_answer` INT NOT NULL,
-  `op_type` VARCHAR(10) NOT NULL COMMENT 'add/sub/mul/div',
-  `reviewed` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '0未订正 1已订正',
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `openid` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `expression` VARCHAR(30) NOT NULL DEFAULT '' COMMENT '算式，如 7+5',
+  `correct_answer` INT NOT NULL DEFAULT 0 COMMENT '正确答案',
+  `user_answer` INT NOT NULL DEFAULT 0 COMMENT '用户答案',
+  `op_type` VARCHAR(10) NOT NULL DEFAULT '' COMMENT '运算类型：add-加法 sub-减法 mul-乘法 div-除法',
+  `reviewed` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否已订正：0-未订正 1-已订正',
   `error_count` SMALLINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '该题累计错误次数',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `reviewed_at` DATETIME DEFAULT NULL,
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `reviewed_at` DATETIME DEFAULT NULL COMMENT '订正时间',
   PRIMARY KEY (`id`),
   KEY `idx_openid_reviewed` (`openid`, `reviewed`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='口算错题表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='口算错题表';
 
 -- --------------------------------------------------
 -- 读题题库表
 -- --------------------------------------------------
 CREATE TABLE `reading_question` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `grade` VARCHAR(10) NOT NULL COMMENT '适用年级: 1-up/1-down/2-up/2-down',
-  `difficulty` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '难度 1-3',
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `grade` VARCHAR(10) NOT NULL DEFAULT '' COMMENT '适用年级：1-up-一年级上 1-down-一年级下 2-up-二年级上 2-down-二年级下',
+  `difficulty` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '难度：1-简单 2-中等 3-困难',
   `content` TEXT NOT NULL COMMENT '题目正文',
-  `math_infos` JSON NOT NULL COMMENT '数学信息列表 ["小明有12个苹果","送给小红5个"]',
-  `math_question` VARCHAR(200) NOT NULL COMMENT '数学问题',
-  `distractors` JSON NOT NULL COMMENT '干扰项列表 ["今天天气很好"]',
-  `answer` INT DEFAULT NULL COMMENT '参考答案(数值)',
-  `audio_url` VARCHAR(500) DEFAULT NULL COMMENT 'TTS音频地址',
-  `status` TINYINT NOT NULL DEFAULT 1 COMMENT '1上线 0下线',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `math_infos` JSON NOT NULL COMMENT '数学信息列表JSON',
+  `math_question` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '数学问题',
+  `distractors` JSON NOT NULL COMMENT '干扰项列表JSON',
+  `answer` INT DEFAULT NULL COMMENT '参考答案（数值）',
+  `audio_url` VARCHAR(500) NOT NULL DEFAULT '' COMMENT 'TTS音频地址',
+  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：0-下线 1-上线',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_grade_status` (`grade`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='读题题库表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='读题题库表';
 
 -- --------------------------------------------------
 -- 读题错题表
 -- --------------------------------------------------
 CREATE TABLE `reading_error` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `openid` VARCHAR(64) NOT NULL,
-  `question_id` BIGINT UNSIGNED NOT NULL,
-  `error_type` VARCHAR(20) NOT NULL COMMENT 'miss_info/extra_info/wrong_question',
-  `user_infos` JSON DEFAULT NULL COMMENT '用户选的数学信息',
-  `user_question` VARCHAR(200) DEFAULT NULL COMMENT '用户选的数学问题',
-  `reviewed` TINYINT(1) NOT NULL DEFAULT 0,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `openid` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `question_id` BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '题目ID',
+  `error_type` VARCHAR(20) NOT NULL DEFAULT '' COMMENT '错误类型：miss_info-漏选信息 extra_info-多选干扰 wrong_question-问题选错',
+  `user_infos` JSON DEFAULT NULL COMMENT '用户选择的数学信息JSON',
+  `user_question` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '用户选择的数学问题',
+  `reviewed` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否已订正：0-未订正 1-已订正',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_openid` (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='读题错题表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='读题错题表';
 
 -- --------------------------------------------------
 -- 打卡记录表
 -- --------------------------------------------------
 CREATE TABLE `checkin` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `openid` VARCHAR(64) NOT NULL,
-  `checkin_date` DATE NOT NULL,
-  `oral_calc_done` TINYINT(1) NOT NULL DEFAULT 0,
-  `reading_done` TINYINT(1) NOT NULL DEFAULT 0,
-  `all_done` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '当日任务全部完成',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `openid` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `checkin_date` DATE NOT NULL COMMENT '打卡日期',
+  `oral_calc_done` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '口算是否完成：0-未完成 1-已完成',
+  `reading_done` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '读题是否完成：0-未完成 1-已完成',
+  `all_done` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '当日任务是否全部完成：0-未完成 1-已完成',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_openid_date` (`openid`, `checkin_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='打卡记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='打卡记录表';
 ```
 
 ---

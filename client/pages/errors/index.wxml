@@ -60,7 +60,7 @@
           <text class="text-red">你答：{{item.user_answer}}</text>
           <text class="text-green">正确：{{item.correct_answer}}</text>
         </view>
-        <text class="error-time">{{item.created_at}}</text>
+        <text class="error-time">{{item.create_time}}</text>
       </view>
       <view wx:if="{{tab === 'pending'}}" class="review-btn" bindtap="startReview" data-index="{{index}}">订正</view>
       <view wx:else class="reviewed-badge">✅</view>
