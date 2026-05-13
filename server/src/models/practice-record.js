@@ -12,7 +12,7 @@ const PracticeRecord = {
 
   async findTodayByType(openid, type, date) {
     const [rows] = await db.query(
-      'SELECT * FROM practice_record WHERE openid = ? AND type = ? AND practice_date = ? ORDER BY created_at DESC LIMIT 1',
+      'SELECT * FROM practice_record WHERE openid = ? AND type = ? AND practice_date = ? ORDER BY create_time DESC LIMIT 1',
       [openid, type, date]
     );
     return rows[0] || null;

@@ -13,7 +13,7 @@ const OralCalcError = {
   async findByOpenid(openid, reviewed = 0, page = 1, pageSize = 20) {
     const offset = (page - 1) * pageSize;
     const [rows] = await db.query(
-      'SELECT * FROM oral_calc_error WHERE openid = ? AND reviewed = ? ORDER BY created_at DESC LIMIT ? OFFSET ?',
+      'SELECT * FROM oral_calc_error WHERE openid = ? AND reviewed = ? ORDER BY create_time DESC LIMIT ? OFFSET ?',
       [openid, reviewed, pageSize, offset]
     );
     const [[{ total }]] = await db.query(
@@ -48,7 +48,7 @@ const OralCalcError = {
   async getErrorCountByOpTypeInRange(openid, startDate, endDate) {
     const [rows] = await db.query(
       `SELECT op_type, COUNT(*) as count FROM oral_calc_error
-       WHERE openid = ? AND created_at BETWEEN ? AND ?
+       WHERE openid = ? AND create_time BETWEEN ? AND ?
        GROUP BY op_type ORDER BY count DESC`,
       [openid, `${startDate} 00:00:00`, `${endDate} 23:59:59`]
     );

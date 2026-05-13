@@ -14,23 +14,23 @@ const User = {
   async create(openid, sessionKey, phone) {
     const [result] = await db.query(
       'INSERT INTO user (openid, session_key, phone) VALUES (?, ?, ?)',
-      [openid, sessionKey, phone]
+      [openid, sessionKey || '', phone || '']
     );
     return result.insertId;
   },
 
   async updateSessionKey(openid, sessionKey) {
-    await db.query('UPDATE user SET session_key = ? WHERE openid = ?', [sessionKey, openid]);
+    await db.query('UPDATE user SET session_key = ? WHERE openid = ?', [sessionKey || '', openid]);
   },
 
   async updatePhone(openid, phone) {
-    await db.query('UPDATE user SET phone = ? WHERE openid = ?', [phone, openid]);
+    await db.query('UPDATE user SET phone = ? WHERE openid = ?', [phone || '', openid]);
   },
 
   async updateUserInfo(openid, nickname, avatarUrl) {
     await db.query(
       'UPDATE user SET nickname = ?, avatar_url = ? WHERE openid = ?',
-      [nickname, avatarUrl, openid]
+      [nickname || '', avatarUrl || '', openid]
     );
   },
 

@@ -29,6 +29,7 @@ router.get('/questions', auth, async (req, res) => {
     const questions = rows.map(q => {
       const infos = typeof q.math_infos === 'string' ? JSON.parse(q.math_infos) : q.math_infos;
       const distractors = typeof q.distractors === 'string' ? JSON.parse(q.distractors) : q.distractors;
+      const qDistractors = typeof q.question_distractors === 'string' ? JSON.parse(q.question_distractors) : (q.question_distractors || []);
 
       let optionId = 0;
       const allOptions = [
@@ -37,11 +38,18 @@ router.get('/questions', auth, async (req, res) => {
         { id: String.fromCharCode(97 + optionId++), text: q.math_question },
       ];
 
+      let qOptId = 0;
+      const questionOptions = shuffle([
+        { id: 'q0', text: q.math_question },
+        ...qDistractors.map(text => ({ id: `q${++qOptId}`, text })),
+      ]);
+
       return {
         id: q.id,
         content: q.content,
         audioUrl: q.audio_url,
         options: shuffle(allOptions),
+        questionOptions,
       };
     });
 
@@ -81,7 +89,7 @@ router.post('/submit', auth, async (req, res) => {
     const missed = correctInfos.filter(id => !selectedInfoIds.includes(id));
     const extra = selectedInfoIds.filter(id => !correctInfos.includes(id));
     const infoCorrect = missed.length === 0 && extra.length === 0;
-    const questionCorrect = selectedQuestionId === questionOptId;
+    const questionCorrect = selectedQuestionId === 'q0';
 
     res.json({
       code: 0,
@@ -94,7 +102,7 @@ router.post('/submit', auth, async (req, res) => {
             extra,
           },
           question: {
-            correct: questionOptId,
+            correct: 'q0',
             userSelected: selectedQuestionId,
             isCorrect: questionCorrect,
           },
