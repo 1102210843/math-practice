@@ -1,4 +1,6 @@
 const api = require('../../utils/request');
+// TODO: 添加教育类目后启用 TTS 插件
+// const plugin = requirePlugin('WechatSI');
 
 Page({
   data: {
@@ -183,6 +185,6 @@ Page({
   },
 
   playAudio() {
-    wx.showToast({ title: '朗读功能开发中', icon: 'none' });
+    wx.showToast({ title: '朗读功能即将上线', icon: 'none' });
   },
 });

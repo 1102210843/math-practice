@@ -1,0 +1,8 @@
+name = "api-proxy"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+account_id = "f5048aaa1a8a22b35ebee29055ae865f"
+
+[[routes]]
+pattern = "api-math.ieque.top/*"
+zone_name = "ieque.top"

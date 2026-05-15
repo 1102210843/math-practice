@@ -1,5 +1,7 @@
-const { generateQuestions } = require('../../utils/oral-calc-generator');
+const { generateQuestions, generateByType } = require('../../utils/oral-calc-generator');
 const api = require('../../utils/request');
+
+const DRAFT_KEY = 'oralCalcDraft';
 
 Page({
   data: {
@@ -19,12 +21,38 @@ Page({
 
   _timer: null,
   _results: [],
+  _type: '',
+  _completed: false,
 
-  onLoad() {
+  onLoad(options) {
+    this._completed = false;
+
+    if (options.resume === '1') {
+      const draft = wx.getStorageSync(DRAFT_KEY);
+      if (draft && draft.questions && draft.questions.length) {
+        this._results = draft.results || [];
+        this._type = draft.type || '';
+        const elapsed = draft.elapsedMs || 0;
+        this.setData({
+          questions: draft.questions,
+          totalCount: draft.questions.length,
+          currentIndex: draft.currentIndex || 0,
+          startTime: Date.now() - elapsed,
+        });
+        this.showQuestion(this.data.currentIndex);
+        this.startTimer();
+        return;
+      }
+    }
+
     const app = getApp();
     const grade = app.globalData.grade || '1-up';
     const count = wx.getStorageSync('questionCount') || 10;
-    const questions = generateQuestions(grade, count);
+    const type = options.type || '';
+    this._type = type;
+    const questions = type
+      ? generateByType(grade, type, count)
+      : generateQuestions(grade, count);
 
     this._results = [];
     this.setData({
@@ -38,8 +66,32 @@ Page({
     this.startTimer();
   },
 
+  onHide() {
+    this.saveDraft();
+  },
+
   onUnload() {
+    this.saveDraft();
     this.stopTimer();
+  },
+
+  saveDraft() {
+    if (this._completed) return;
+    if (this.data.currentIndex >= this.data.totalCount) return;
+
+    const elapsedMs = Date.now() - this.data.startTime;
+    wx.setStorageSync(DRAFT_KEY, {
+      questions: this.data.questions,
+      currentIndex: this.data.currentIndex,
+      results: this._results,
+      type: this._type,
+      elapsedMs,
+      savedAt: Date.now(),
+    });
+  },
+
+  clearDraft() {
+    wx.removeStorageSync(DRAFT_KEY);
   },
 
   showQuestion(index) {
@@ -115,6 +167,8 @@ Page({
   },
 
   async submitAndShowResult() {
+    this._completed = true;
+    this.clearDraft();
     this.stopTimer();
     const durationSeconds = Math.floor((Date.now() - this.data.startTime) / 1000);
 

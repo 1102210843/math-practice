@@ -1,0 +1,27 @@
+<view class="page-bg">
+  <view class="header">
+    <text class="header-title">选择题型</text>
+    <text class="header-sub">{{gradeText}} · 专项突破薄弱环节</text>
+  </view>
+
+  <view class="type-grid">
+    <view
+      wx:for="{{types}}"
+      wx:key="type"
+      class="type-card"
+      bindtap="pickType"
+      data-type="{{item.type}}"
+    >
+      <view class="card-top" style="background: {{item.bg}};">
+        <view class="symbol-circle" style="background: {{item.color}};">
+          <text class="symbol-text">{{item.symbol}}</text>
+        </view>
+      </view>
+      <view class="card-bottom">
+        <text class="type-name">{{item.name}}</text>
+        <text class="type-desc">{{item.desc}}</text>
+        <view class="go-btn" style="background: {{item.color}};">开始练习</view>
+      </view>
+    </view>
+  </view>
+</view>

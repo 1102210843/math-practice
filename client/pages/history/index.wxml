@@ -1,0 +1,66 @@
+<view class="page-bg">
+  <!-- 未完成练习 -->
+  <block wx:if="{{draft}}">
+    <view class="section-row">
+      <view class="section-bar bar-orange"></view>
+      <text class="section-title">未完成</text>
+    </view>
+
+    <view class="draft-card">
+      <view class="draft-info">
+        <view class="draft-title-row">
+          <text class="draft-label">口算练习</text>
+          <text class="draft-tag" wx:if="{{draft.type}}">{{draft.type === 'add' ? '加法' : draft.type === 'sub' ? '减法' : draft.type === 'mul' ? '乘法' : draft.type === 'div' ? '除法' : '混合'}}</text>
+        </view>
+        <view class="draft-meta">
+          <text class="draft-progress">已完成 {{draft.done}}/{{draft.total}} 题</text>
+          <text class="draft-time">{{draft.timeAgo}}保存</text>
+        </view>
+        <view class="draft-bar-wrap">
+          <view class="draft-bar-bg">
+            <view class="draft-bar-fill" style="width: {{draft.done / draft.total * 100}}%;"></view>
+          </view>
+        </view>
+      </view>
+      <view class="draft-actions">
+        <view class="btn-resume" bindtap="resumeDraft">继续练习</view>
+        <view class="btn-delete" bindtap="deleteDraft">放弃</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 已完成记录 -->
+  <view class="section-row">
+    <view class="section-bar"></view>
+    <text class="section-title">已完成</text>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty-hint">暂无练习记录</view>
+
+  <view wx:for="{{list}}" wx:key="id" class="record-card">
+    <view class="record-top">
+      <view class="record-type-badge">{{item.typeLabel}}</view>
+      <text class="record-date">{{item.date}}</text>
+    </view>
+    <view class="record-body">
+      <view class="record-stat">
+        <text class="record-stat-num">{{item.accuracy}}%</text>
+        <text class="record-stat-label">正确率</text>
+      </view>
+      <view class="record-stat">
+        <text class="record-stat-num">{{item.correctCount}}/{{item.totalCount}}</text>
+        <text class="record-stat-label">答对</text>
+      </view>
+      <view class="record-stat">
+        <text class="record-stat-num">{{item.duration}}</text>
+        <text class="record-stat-label">用时</text>
+      </view>
+      <view class="record-stars">
+        <text wx:for="{{item.starsArr}}" wx:for-item="s" wx:key="*this" class="star-icon">⭐</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{hasMore}}" class="load-more" bindtap="loadMore">加载更多</view>
+  <view wx:if="{{loading}}" class="load-more">加载中...</view>
+</view>

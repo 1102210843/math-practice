@@ -5,9 +5,9 @@ const LEVEL_NAMES = ['口算新手', '口算学徒', '口算能手', '口算高�
 Page({
   data: {
     statusBarHeight: 20,
-    mascotUrl: api.imgUrl('mascot.png'),
-    iconOralCalc: api.imgUrl('icon-oral-calc.png'),
-    iconReading: api.imgUrl('icon-reading.png'),
+    mascotUrl: '/images/mascot.png',
+    iconOralCalc: '/images/icon-oral-calc.png',
+    iconReading: '/images/icon-reading.png',
     totalStars: 0,
     level: 1,
     levelName: '口算新手',
@@ -110,5 +110,9 @@ Page({
 
   goReading() {
     wx.navigateTo({ url: '/pages/reading/index' });
+  },
+
+  goTopic() {
+    wx.navigateTo({ url: '/pages/oral-calc/topic/index' });
   },
 });

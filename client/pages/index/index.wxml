@@ -53,6 +53,24 @@
       <view wx:else class="start-btn">开始</view>
     </view>
 
+    <view class="section-header" style="margin-top: 12rpx;">
+      <view class="section-title-row">
+        <view class="section-bar"></view>
+        <text class="section-title-text">专项练习</text>
+      </view>
+    </view>
+
+    <view class="task-card" bindtap="goTopic">
+      <view class="task-icon-wrap">
+        <text class="task-icon-emoji">🎯</text>
+      </view>
+      <view class="task-info">
+        <text class="task-name">按题型练习</text>
+        <text class="task-desc">选择加减乘除 · 专项突破</text>
+      </view>
+      <view class="start-btn">选择</view>
+    </view>
+
     <view class="section-header section-header-calendar">
       <view class="section-title-row">
         <view class="section-bar"></view>

@@ -1,5 +1,12 @@
 const db = require('../config/database');
 
+function generateNickname() {
+  const prefixes = ['小达人', '口算侠', '数学星', '算术家', '小天才', '小学霸'];
+  const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+  const num = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+  return prefix + num;
+}
+
 const User = {
   async findByOpenid(openid) {
     const [rows] = await db.query('SELECT * FROM user WHERE openid = ?', [openid]);
@@ -12,9 +19,10 @@ const User = {
   },
 
   async create(openid, sessionKey, phone) {
+    const nickname = generateNickname();
     const [result] = await db.query(
-      'INSERT INTO user (openid, session_key, phone) VALUES (?, ?, ?)',
-      [openid, sessionKey || '', phone || '']
+      'INSERT INTO user (openid, session_key, phone, nickname) VALUES (?, ?, ?, ?)',
+      [openid, sessionKey || '', phone || '', nickname]
     );
     return result.insertId;
   },

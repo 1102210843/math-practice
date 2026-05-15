@@ -84,4 +84,23 @@ function generateQuestions(grade, count) {
   return questions;
 }
 
-module.exports = { generateQuestions };
+const TYPE_GENERATOR = {
+  'add': generateAdd,
+  'sub': generateSub,
+  'mul': generateMul,
+  'div': generateDiv,
+};
+
+function generateByType(grade, type, count) {
+  const config = GRADE_CONFIG[grade];
+  if (!config) return [];
+  const gen = TYPE_GENERATOR[type];
+  if (!gen) return generateQuestions(grade, count);
+  const questions = [];
+  for (let i = 0; i < count; i++) {
+    questions.push(gen(config));
+  }
+  return questions;
+}
+
+module.exports = { generateQuestions, generateByType, GRADE_CONFIG };

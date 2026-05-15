@@ -100,6 +100,17 @@ router.post('/submit', auth, async (req, res) => {
   }
 });
 
+router.get('/history', auth, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const result = await PracticeRecord.findRecent(req.openid, page);
+    res.json({ code: 0, data: result, message: 'ok' });
+  } catch (err) {
+    console.error('Get history error:', err);
+    res.json({ code: 5000, data: null, message: '获取练习记录失败' });
+  }
+});
+
 router.get('/errors', auth, async (req, res) => {
   try {
     const reviewed = parseInt(req.query.reviewed, 10) || 0;

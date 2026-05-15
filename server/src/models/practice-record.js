@@ -18,6 +18,24 @@ const PracticeRecord = {
     return rows[0] || null;
   },
 
+  async findRecent(openid, page = 1, pageSize = 20) {
+    const offset = (page - 1) * pageSize;
+    const [rows] = await db.query(
+      `SELECT id, type, practice_date, total_count, correct_count,
+              duration_seconds, stars_earned, create_time
+       FROM practice_record
+       WHERE openid = ?
+       ORDER BY create_time DESC
+       LIMIT ? OFFSET ?`,
+      [openid, pageSize, offset]
+    );
+    const [[{ total }]] = await db.query(
+      'SELECT COUNT(*) as total FROM practice_record WHERE openid = ?',
+      [openid]
+    );
+    return { list: rows, total };
+  },
+
   async getStatsByDateRange(openid, type, startDate, endDate) {
     const [rows] = await db.query(
       `SELECT practice_date, total_count, correct_count, duration_seconds

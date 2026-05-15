@@ -1,0 +1,106 @@
+page {
+  background: #2E6FF2;
+}
+
+.page-bg {
+  min-height: 100vh;
+  background: #F0F4FA;
+  padding: 0 28rpx 60rpx;
+  border-radius: 32rpx 32rpx 0 0;
+}
+
+/* ===== 顶部标题 ===== */
+.header {
+  padding: 40rpx 0 32rpx;
+  text-align: center;
+}
+
+.header-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+  margin-bottom: 8rpx;
+}
+
+.header-sub {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* ===== 题型网格 ===== */
+.type-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+}
+
+.type-card {
+  width: calc(50% - 12rpx);
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s;
+}
+
+.type-card:active {
+  transform: scale(0.96);
+}
+
+/* ===== 卡片上半：彩色背景 + 运算符 ===== */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0 32rpx;
+}
+
+.symbol-circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.symbol-text {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ===== 卡片下半：名称 + 描述 + 按钮 ===== */
+.card-bottom {
+  padding: 20rpx 24rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.type-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.type-desc {
+  font-size: 24rpx;
+  color: #A0A0B0;
+  margin-bottom: 12rpx;
+}
+
+.go-btn {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 500;
+  padding: 14rpx 0;
+  border-radius: 32rpx;
+}

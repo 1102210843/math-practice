@@ -1,11 +1,10 @@
 var api = require('../../utils/request');
-var { STATIC_URL } = require('../../utils/request');
 
 Page({
   data: {
     statusBarHeight: 44,
     loading: false,
-    logoUrl: STATIC_URL + '/images/logo.png',
+    logoUrl: '/images/logo.png',
   },
 
   onLoad: function () {
@@ -18,29 +17,18 @@ Page({
     }
   },
 
-  onGetPhoneNumber: function (e) {
-    if (e.detail.errMsg !== 'getPhoneNumber:ok') {
-      wx.showToast({ title: '需要授权手机号才能登录', icon: 'none' });
-      return;
-    }
-
+  onLogin: function () {
     var that = this;
     that.setData({ loading: true });
 
     var app = getApp();
-    var phoneCode = e.detail.code;
 
     var accountInfo = wx.getAccountInfoSync ? wx.getAccountInfoSync() : {};
     var appId = accountInfo.miniProgram && accountInfo.miniProgram.appId;
     var isRealApp = appId && appId !== 'touristappid' && !appId.startsWith('tourist');
 
     function doLogin(wxCode) {
-      var postData = {
-        code: wxCode,
-        phoneCode: phoneCode,
-      };
-
-      api.post('/auth/login', postData).then(function (res) {
+      api.post('/auth/login', { code: wxCode }).then(function (res) {
         if (res.code === 0) {
           app.setToken(res.data.token);
           if (res.data.grade) app.setGrade(res.data.grade);

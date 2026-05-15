@@ -1,0 +1,220 @@
+page {
+  background: #2E6FF2;
+}
+
+.page-bg {
+  min-height: 100vh;
+  background: #F0F4FA;
+  padding: 24rpx 28rpx 60rpx;
+  border-radius: 32rpx 32rpx 0 0;
+}
+
+/* ===== Section 标题 ===== */
+.section-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin: 16rpx 0 16rpx;
+  padding: 0 4rpx;
+}
+
+.section-bar {
+  width: 8rpx;
+  height: 32rpx;
+  background: #3478F6;
+  border-radius: 4rpx;
+}
+
+.bar-orange {
+  background: #FF6B35;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+/* ===== 未完成草稿卡片 ===== */
+.draft-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  border-left: 8rpx solid #FF6B35;
+}
+
+.draft-info {
+  margin-bottom: 20rpx;
+}
+
+.draft-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 10rpx;
+}
+
+.draft-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.draft-tag {
+  font-size: 22rpx;
+  color: #FF6B35;
+  background: #FFF0E6;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.draft-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.draft-progress {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.draft-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.draft-bar-wrap {
+  width: 100%;
+}
+
+.draft-bar-bg {
+  height: 12rpx;
+  background: #F0F2F5;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.draft-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35, #FFA726);
+  border-radius: 6rpx;
+  transition: width 0.3s;
+}
+
+.draft-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.btn-resume {
+  flex: 1;
+  text-align: center;
+  background: #3478F6;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 18rpx 0;
+  border-radius: 40rpx;
+}
+
+.btn-resume:active {
+  opacity: 0.85;
+}
+
+.btn-delete {
+  width: 140rpx;
+  text-align: center;
+  background: #F5F5F5;
+  color: #999;
+  font-size: 28rpx;
+  padding: 18rpx 0;
+  border-radius: 40rpx;
+}
+
+.btn-delete:active {
+  background: #E8E8E8;
+}
+
+/* ===== 已完成记录卡片 ===== */
+.record-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.record-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.record-type-badge {
+  font-size: 22rpx;
+  color: #3478F6;
+  background: #EBF2FF;
+  padding: 4rpx 18rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.record-body {
+  display: flex;
+  align-items: center;
+}
+
+.record-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.record-stat-num {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.record-stat-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.record-stars {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 4rpx;
+  padding-left: 12rpx;
+}
+
+.star-icon {
+  font-size: 28rpx;
+}
+
+/* ===== 空状态 & 加载更多 ===== */
+.empty-hint {
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+  padding: 80rpx 0;
+}
+
+.load-more {
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+  padding: 24rpx 0;
+}

@@ -149,6 +149,11 @@
   height: 96rpx;
 }
 
+.task-icon-emoji {
+  font-size: 48rpx;
+  line-height: 1;
+}
+
 .task-info {
   flex: 1;
 }

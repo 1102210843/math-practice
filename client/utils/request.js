@@ -1,5 +1,4 @@
-const BASE_URL = 'http://10.13.234.184:3000/api';
-const STATIC_URL = 'http://10.13.234.184:3000/static';
+const BASE_URL = 'http://8.162.2.58:13000/api';
 
 function request(url, options = {}) {
   const app = getApp();
@@ -39,6 +38,4 @@ module.exports = {
   get: (url, data) => request(url, { method: 'GET', data }),
   post: (url, data) => request(url, { method: 'POST', data }),
   put: (url, data) => request(url, { method: 'PUT', data }),
-  STATIC_URL,
-  imgUrl: (name) => `${STATIC_URL}/images/${name}`,
 };

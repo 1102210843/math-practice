@@ -9,9 +9,9 @@ const OP_NAMES = {
 
 Page({
   data: {
-    imgNodata: api.imgUrl('illust-nodata.png'),
-    imgReading: api.imgUrl('illust-reading.png'),
-    imgCheckin: api.imgUrl('illust-checkin.png'),
+    imgNodata: '/images/illust-nodata.png',
+    imgReading: '/images/illust-reading.png',
+    imgCheckin: '/images/illust-checkin.png',
     range: 'week',
     oralTrend: [],
     oralStats: {

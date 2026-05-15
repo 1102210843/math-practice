@@ -77,6 +77,14 @@
   </view>
 
   <view class="settings-card">
+    <view class="menu-item" bindtap="goHistory">
+      <view class="menu-left">
+        <view class="icon-circle icon-bg-blue"><text class="icon-inner">📋</text></view>
+        <text class="menu-text">练习记录</text>
+      </view>
+      <text class="menu-arrow">▸</text>
+    </view>
+    <view class="menu-divider"></view>
     <view class="menu-item" bindtap="goErrors">
       <view class="menu-left">
         <view class="icon-circle icon-bg-orange"><text class="icon-inner">📕</text></view>

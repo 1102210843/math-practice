@@ -1,5 +1,4 @@
 const api = require('../../utils/request');
-const { STATIC_URL } = require('../../utils/request');
 
 const LEVEL_NAMES = ['口算新手', '口算学徒', '口算能手', '口算高手', '口算小达人'];
 const GRADE_MAP = {
@@ -12,7 +11,7 @@ const GRADE_MAP = {
 Page({
   data: {
     nickname: '口算小达人',
-    avatarUrl: STATIC_URL + '/images/logo.png',
+    avatarUrl: '/images/logo.png',
     totalStars: 0,
     level: 1,
     levelName: '口算新手',
@@ -51,7 +50,7 @@ Page({
         const d = res.data;
         this.setData({
           nickname: d.nickname || '口算小达人',
-          avatarUrl: d.avatarUrl || STATIC_URL + '/images/logo.png',
+          avatarUrl: d.avatarUrl || '/images/logo.png',
           totalStars: d.totalStars,
           level: d.level,
           levelName: LEVEL_NAMES[d.level - 1] || '口算新手',
@@ -141,6 +140,10 @@ Page({
     } catch (err) {
       console.error('Load badges error:', err);
     }
+  },
+
+  goHistory() {
+    wx.navigateTo({ url: '/pages/history/index' });
   },
 
   goErrors() {
