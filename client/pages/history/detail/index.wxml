@@ -1,0 +1,40 @@
+<view class="page-bg">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+
+  <block wx:if="{{!loading && record}}">
+    <view class="summary-card">
+      <view class="summary-top">
+        <view class="type-badge">{{record.typeLabel}}</view>
+        <text class="date-text">{{record.date}}</text>
+      </view>
+      <view class="summary-body">
+        <view class="summary-item">
+          <text class="item-num">{{record.accuracy}}%</text>
+          <text class="item-label">正确率</text>
+        </view>
+        <view class="summary-item">
+          <text class="item-num">{{record.correctCount}}/{{record.totalCount}}</text>
+          <text class="item-label">答对</text>
+        </view>
+        <view class="summary-item">
+          <text class="item-num">{{record.duration}}</text>
+          <text class="item-label">用时</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{hasDetail}}" class="section-title">题目明细</view>
+    <view wx:if="{{!hasDetail}}" class="empty-hint">该次练习暂无题目明细</view>
+
+    <view wx:for="{{questions}}" wx:key="id" class="question-card">
+      <view class="question-top">
+        <text class="expression">{{item.expression}}</text>
+        <text class="{{item.correct ? 'status-ok' : 'status-bad'}}">{{item.correct ? '✅ 正确' : '❌ 错误'}}</text>
+      </view>
+      <view class="answers">
+        <text class="your-answer">你的答案：{{item.userAnswer}}</text>
+        <text class="correct-answer">正确答案：{{item.correctAnswer}}</text>
+      </view>
+    </view>
+  </block>
+</view>

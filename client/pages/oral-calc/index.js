@@ -171,6 +171,9 @@ Page({
     this.clearDraft();
     this.stopTimer();
     const durationSeconds = Math.floor((Date.now() - this.data.startTime) / 1000);
+    const totalCount = this.data.totalCount || this._results.length;
+    const correctCount = this._results.filter(r => r.correct).length;
+    const accuracy = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
 
     try {
       const res = await api.post('/oral-calc/submit', {
@@ -184,11 +187,11 @@ Page({
         })),
       });
 
-      const resultData = res.code === 0 ? res.data : {
-        stars: 0,
-        accuracy: 0,
-        correctCount: this._results.filter(r => r.correct).length,
-        totalCount: this.data.totalCount,
+      const resultData = {
+        stars: res.code === 0 ? (res.data.stars || 0) : 0,
+        accuracy,
+        correctCount,
+        totalCount,
         errors: this._results.filter(r => !r.correct),
       };
 
@@ -200,13 +203,12 @@ Page({
       });
     } catch (err) {
       console.error('Submit error:', err);
-      const correctCount = this._results.filter(r => r.correct).length;
       wx.redirectTo({
         url: `/pages/oral-calc/result?data=${encodeURIComponent(JSON.stringify({
           stars: 0,
-          accuracy: Math.round((correctCount / this.data.totalCount) * 100),
+          accuracy,
           correctCount,
-          totalCount: this.data.totalCount,
+          totalCount,
           errors: this._results.filter(r => !r.correct),
           durationSeconds,
         }))}`,

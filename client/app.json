@@ -9,7 +9,9 @@
     "pages/reading/result",
     "pages/report/index",
     "pages/history/index",
+    "pages/history/detail/index",
     "pages/errors/index",
+    "pages/errors/review/index",
     "pages/mine/index",
     "pages/agreement/index",
     "pages/privacy/index"

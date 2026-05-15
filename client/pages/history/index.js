@@ -148,6 +148,12 @@ Page({
     this.loadHistory();
   },
 
+  openRecordDetail(e) {
+    const id = e.currentTarget.dataset.id;
+    if (!id) return;
+    wx.navigateTo({ url: `/pages/history/detail/index?id=${id}` });
+  },
+
   resumeDraft() {
     wx.navigateTo({ url: '/pages/oral-calc/index?resume=1' });
   },

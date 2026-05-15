@@ -19,7 +19,6 @@ Page({
     maxStreakDays: 0,
     grade: '1-up',
     gradeText: '一年级上册',
-    soundEnabled: true,
     questionCount: 10,
     badges: [],
     showGrade: false,
@@ -38,7 +37,6 @@ Page({
     this.setData({
       grade: app.globalData.grade,
       gradeText: GRADE_MAP[app.globalData.grade] || '一年级上册',
-      soundEnabled: wx.getStorageSync('soundEnabled') !== false,
       questionCount: wx.getStorageSync('questionCount') || 10,
     });
   },
@@ -111,12 +109,6 @@ Page({
     } catch (err) {
       console.error('Update grade error:', err);
     }
-  },
-
-  toggleSound(e) {
-    const enabled = e.detail.value;
-    wx.setStorageSync('soundEnabled', enabled);
-    this.setData({ soundEnabled: enabled });
   },
 
   showCountPicker() {

@@ -37,7 +37,7 @@
 
   <view wx:if="{{list.length === 0 && !loading}}" class="empty-hint">暂无练习记录</view>
 
-  <view wx:for="{{list}}" wx:key="id" class="record-card">
+  <view wx:for="{{list}}" wx:key="id" class="record-card" bindtap="openRecordDetail" data-id="{{item.id}}">
     <view class="record-top">
       <view class="record-type-badge">{{item.typeLabel}}</view>
       <text class="record-date">{{item.date}}</text>

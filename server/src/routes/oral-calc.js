@@ -111,6 +111,23 @@ router.get('/history', auth, async (req, res) => {
   }
 });
 
+router.get('/history/detail', auth, async (req, res) => {
+  try {
+    const id = parseInt(req.query.id, 10);
+    if (!id) {
+      return res.json({ code: 1001, data: null, message: '记录ID不能为空' });
+    }
+    const record = await PracticeRecord.findById(req.openid, id);
+    if (!record) {
+      return res.json({ code: 1004, data: null, message: '记录不存在' });
+    }
+    res.json({ code: 0, data: record, message: 'ok' });
+  } catch (err) {
+    console.error('Get history detail error:', err);
+    res.json({ code: 5000, data: null, message: '获取记录详情失败' });
+  }
+});
+
 router.get('/errors', auth, async (req, res) => {
   try {
     const reviewed = parseInt(req.query.reviewed, 10) || 0;

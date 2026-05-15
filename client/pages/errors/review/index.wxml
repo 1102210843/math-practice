@@ -1,0 +1,43 @@
+<view class="page-bg">
+  <view class="expression-area">
+    <view class="expression-line">
+      <text class="expression-text">{{reviewItem.expression}} = </text>
+      <text class="expression-q" wx:if="{{reviewInput === ''}}">?</text>
+      <text class="expression-answer" wx:else>{{reviewInput}}</text>
+    </view>
+    <view class="input-indicator" wx:if="{{reviewFeedback === ''}}">
+      <view class="input-cursor"></view>
+    </view>
+
+    <view wx:if="{{reviewFeedback !== ''}}" class="feedback">
+      <text wx:if="{{reviewCorrect}}" class="text-green feedback-icon">✅ 答对了！</text>
+      <view wx:else class="feedback-wrong">
+        <text class="text-red feedback-icon">❌ 再想想</text>
+        <text class="correct-hint">正确答案：{{reviewItem.correct_answer}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="numpad">
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onReviewKey" data-key="1">1</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="2">2</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="3">3</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onReviewKey" data-key="4">4</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="5">5</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="6">6</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key" bindtap="onReviewKey" data-key="7">7</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="8">8</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="9">9</view>
+    </view>
+    <view class="numpad-row">
+      <view class="numpad-key key-del" bindtap="onReviewKey" data-key="del">⌫</view>
+      <view class="numpad-key" bindtap="onReviewKey" data-key="0">0</view>
+      <view class="numpad-key key-confirm" bindtap="confirmReview">确定</view>
+    </view>
+  </view>
+</view>

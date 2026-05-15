@@ -36,6 +36,18 @@ const PracticeRecord = {
     return { list: rows, total };
   },
 
+  async findById(openid, id) {
+    const [rows] = await db.query(
+      `SELECT id, type, practice_date, total_count, correct_count,
+              duration_seconds, stars_earned, detail, create_time
+       FROM practice_record
+       WHERE openid = ? AND id = ?
+       LIMIT 1`,
+      [openid, id]
+    );
+    return rows[0] || null;
+  },
+
   async getStatsByDateRange(openid, type, startDate, endDate) {
     const [rows] = await db.query(
       `SELECT practice_date, total_count, correct_count, duration_seconds

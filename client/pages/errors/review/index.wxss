@@ -1,0 +1,135 @@
+page {
+  background: #2E6FF2;
+}
+
+.page-bg {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F0F4FA;
+  padding: 24rpx 28rpx 0;
+  box-sizing: border-box;
+  border-radius: 32rpx 32rpx 0 0;
+  margin-top: -2rpx;
+}
+
+.expression-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 28rpx;
+  margin-bottom: 24rpx;
+  flex: 1;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.expression-line {
+  display: flex;
+  align-items: baseline;
+}
+
+.expression-text {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+.expression-q {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #3478F6;
+}
+
+.expression-answer {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #3478F6;
+}
+
+.input-indicator {
+  margin-top: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-cursor {
+  width: 60rpx;
+  height: 6rpx;
+  background: #CCC;
+  border-radius: 3rpx;
+}
+
+.feedback {
+  margin-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feedback-icon {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.feedback-wrong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.correct-hint {
+  font-size: 32rpx;
+  color: #FFA726;
+  margin-top: 10rpx;
+  font-weight: bold;
+}
+
+.numpad {
+  padding: 10rpx 0 40rpx;
+  flex-shrink: 0;
+}
+
+.numpad-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.numpad-key {
+  flex: 1;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  font-weight: 600;
+  background: #fff;
+  border-radius: 20rpx;
+  color: #1A1A2E;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.numpad-key:active {
+  background: #E8ECF2;
+  transform: scale(0.97);
+}
+
+.key-del {
+  color: #999;
+  font-size: 44rpx;
+}
+
+.key-confirm {
+  background: #3478F6;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.key-confirm:active {
+  background: #2B6AE0;
+}
